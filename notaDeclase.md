@@ -11,7 +11,6 @@
 ![Git Hub](https://www.freecodecamp.org/news/content/images/2022/07/git-github.png "Work online")
 
 ![Code Blocks](https://programaenlinea.net/wp-content/uploads/2017/10/codeblocks.png "IDE para los ejemplos")
-
 ### ***Configuración de un proyecto***  
   Una vez intalado el IDE, lo abrimos y pulsamos en nuevo proyecto
 
@@ -44,7 +43,6 @@
   ![Finish](https://code.visualstudio.com/assets/docs/editor/userdefinedsnippets/category-snippets.png "Extensiones")
 
 Una vez configurado el entorno, intalado el compilador y modificado el repositorio; Es hora de escribir código :)
-
 * ### C/C++ lenguaje
   El lenguaje C y C++ difieren un poco en lo que respecta a su funcionamiento, mas no en su sintaxis por lo que eligiremos a C++ como lenguaje principal.
   Creado el archivo obtenemos lo siguiente
@@ -75,7 +73,6 @@ Una vez configurado el entorno, intalado el compilador y modificado el repositor
   Hello World!
   ~~~
   Sobre las librerías y funciones hablaremos más adelante.
-
 * ### Dibujando una forma
   Cuando corramos un programa la funcion main() iumprimirá cualquier línea de código escrito entre {}. 
 
@@ -855,8 +852,360 @@ Una vez configurado el entorno, intalado el compilador y modificado el repositor
     56
     ~~~
   Se encarga de indexar dos arrays.
-* ### 
-~~~
+* ### Archivos
+  Se agrega la librería "fstream", se utiliza ifstream para leer datos y ofstream para sobreescribirlos.
+  ~~~
+  #include <iostream>
+  #include <cstdlib>  //libreria para crear variables globales
+  #include <fstream>
+
+  using namespace std;
+
+  string linea;
+  string texto;
+
+  int main()
+  {
+    ifstream archivo("test.txt");
+
+    while(getline(archivo, linea)){  //leer todas las líneas al guardarse en una variable
+      texto = texto+linea+"\n";
+    }
+    archivo.close();  //eliminar memoria residual de abrir
+    cout << texto << endl;
+
+    ofstream archivo2("test.txt");  //crea documento y sobreescribe
+    archivo2 << texto <<"Nueva linea de Texto";
+
+    system("pause"); //para seguir trabajando
+  }
+  ~~~
+  #### ***Explicación de las funciones cin, cout, cerr.***
+  ![Funciones](http://jbgarcia.webs.uvigo.es/asignaturas/TO/cursilloCpp/iostream.png "Salida y entrada")
+  [Página para saber más](http://jbgarcia.webs.uvigo.es/asignaturas/TO/cursilloCpp/14_archivos.html)  
+* ### Pointers
+  Se llaman así a los tipos de datos que contienen la direccion de la variable en la memoria &nombre_de_la_variable
+  ~~~
+  #include <iostream>
+
+  using namespace std;
+  int main()
+  {
+    int age = 19;
+    double gpa = 2.7;
+    string name = "Mike";
+
+    cout << &age << endl;
+    cout << &gpa << endl;
+    cout << &name << endl;
+    return 0;
+  }
+  ~~~
+  Output:
+  ~~~
+  0xe2773ff628
+  0xe2773ff620
+  0xe2773ff600
+  ~~~
+  >Estas son las direcciones en la memoria de mis variables.
+
+  También se puede usar la dirección como un dato e introducirlo en una variable
+  ~~~
+  #include <iostream>
+
+  using namespace std;
+  int main()
+  {
+    int age = 19;
+    int *pAge = &age;
+    double gpa = 2.7;
+    double *pGpa = &gpa;
+    string name = "Mike";
+    string *pName = &name;
+
+    cout << pAge << endl;
+    cout << pGpa << endl;
+    cout << pName << endl;
+    return 0;
+  }
+  ~~~
+  Output:
+  ~~~
+  0xe2773ff628
+  0xe2773ff620
+  0xe2773ff600
+  ~~~
+
+  Y juguemos con los punteros usando el valor al que apuntan y obteniendo el valor que contienen las variables.
+
+  ~~~
+  #include <iostream>
+
+  using namespace std;
+  int main()
+  {
+    int age = 19;
+    int *pAge = &age;
+    double gpa = 2.7;
+    double *pGpa = &gpa;
+    string name = "Mike";
+    string *pName = &name;
+
+    cout << *pAge << endl;
+    cout << *pGpa << endl;
+    cout << *pName << endl;
+    return 0;
+  }
+  ~~~
+  Output:
+  ~~~
+  19
+  2.7
+  Mike
+  ~~~
+* ### Clases y Objetos
+  POO son las siglas de Programación Orientada a Objetos.
+
+  La programación procedimental consiste en escribir procedimientos o funciones que realicen operaciones sobre los datos, mientras que la programación orientada a objetos consiste en crear objetos que contengan tanto datos como funciones.
+
+  La programación orientada a objetos tiene varias ventajas sobre la programación procedimental:
+
+  La programación orientada a objetos es más rápida y fácil de ejecutar.  
+  La programación orientada a objetos proporciona una estructura clara a los programas.  
+  La programación orientada a objetos ayuda a mantener el código C++ DRY "Don't Repeat Yourself" (no te repitas), y hace que el código sea más fácil de mantener, modificar y depurar.  
+  La programación orientada a objetos permite crear aplicaciones totalmente reutilizables con menos código y menos tiempo de desarrollo.   
+
+  ¿Y las clases..?
+  
+  Una clase es una plantilla para objetos, y un objeto es una instancia de una clase.
+  Cuando se crean los objetos individuales, se heredan todas las variables y funciones de la clase.
+
+  ~~~
+  #include <iostream>
+
+  using namespace std;
+  class Book {
+    public:
+        string title;
+        string author;
+        int pages;
+  };
+  int main()
+  {
+    Book book1;
+    book1.title = "Harry Potter" << endl;
+    book1.author = "JK Rowling" << endl;
+    book1.pages = 500 << endl;
+
+    cout << book1.author;
+    cout << book1.pages;
+    cout << book1.title;
+
+    Book book2;
+    book2.title = "Emma";
+    book2.author = "Jane Austen";
+    book2.pages = 400;
+
+    return 0;
+  }
+  ~~~
+  Output:
+  ~~~
+  JK Rowling
+  500
+  Harry Potter
+  ~~~
+  >Se podría decir que la clase es la plantilla para los datos, mientras que el objeto contiene valores que entrarán en esa plantilla
+* ### Constructors Functions
+
+  Work like that:
+  ~~~
+  #include <iostream>
+
+  using namespace std;
+  class Book {
+    public:
+        string title;
+        string author;
+        int pages;
+
+        Book(string aTitle, string aAuthor, int aPages){ 
+            title = aTitle;
+            author = aAuthor;
+            pages = aPages;
+
+        }
+
+
+  };
+  int main()
+  {
+    Book book1("Harry Potter", "JK Rowling", 500);
+    Book book2("Emma", "Jane Austen", 400);
+    
+    cout << book1.title;
+
+     return 0;
+  }
+  ~~~
+  Output:
+  ~~~
+  Harry Potter
+  ~~~
+* ### Objects Functions
+  ~~~
+  #include <iostream>
+
+  using namespace std;
+  class Book {
+    public:
+        string title;
+        string author;
+        int pages;
+
+        Book(string aTitle, string aAuthor, int aPages){
+            title = aTitle;
+            author = aAuthor;
+            pages = aPages;
+
+        }
+        Book(){
+            title = "no title";
+            author = "no author";
+            pages = 0;
+        }
+        bool easytoread(){
+            if(pages < 600){
+                return true;
+            }
+            return false;
+        }
+  };
+
+  int main()
+  {
+    Book book1("Harry Potter", "JK Rowling", 500);
+    Book book2("Emma", "Jane Austen", 400);
+    Book book3;
+    cout << book1.easytoread() << endl;
+    cout << book2.easytoread();
+
+     return 0;
+  }
+  ~~~
+  Output:
+  ~~~
+  1
+  1
+  ~~~
+  Porque la condición es cierta.
+* ### Getter and Setters
+  Permitir que tu código sea modificado o no usando private en la Clase y controlar el acceso a elementos individuales
+  ~~~
+  #include <iostream>
+  using namespace std;
+
+  class Movie {
+    private:
+        string rating;
+    public:
+        string title;
+        string director;
+
+        Movie(string aTitle, string aDirector, string aRating){
+            title = aTitle;
+            director = aDirector;
+            setRating(aRating);
+        }
+
+        void setRating(string aRating){
+            if(aRating == "G" || aRating == "PG" || aRating == "PG-13" || aRating == "R")
+               rating = aRating;
+            else {
+                rating = "NR";
+            }
+        }
+
+        string getRating(){
+            return rating;
+        }
+  };
+
+  int main()
+  {
+    Movie avengers("The Avengers", "Joss Whedon", "PG-13");
+    avengers.setRating("Dog");
+    cout << avengers.getRating();
+  }
+  ~~~
+  Output:
+  ~~~
+  NR
+  ~~~
+* ### Inheritance -Herencia
+  Obtener datos públicos de otra clase, aumentar el numero de funcionalidades o sobreescribir funciones.  
+
+  *SuperClass* Aquella de la que se hereda  
+
+  *SubClass* La que recibe los datos
+  ~~~
+  #include <iostream>
+  using namespace std;
+
+  class Chef{
+  public:
+    void makeChicken(){
+        cout << "The chef makes yummy chicken\n";
+    }
+     void makeSalad(){
+        cout << "The chef makes salad\n";
+    }
+     void makeSpecialDish(){
+        cout << "The chef makes bbq ribs\n";
+    }
+  };
+
+  class italianChef : public Chef{
+    public:
+    void makePasta(){
+        cout << "The chef makes pasta\n";
+    }
+    void makeSpecialDish(){
+        cout << "The chef makes chicken parm\n";
+    }
+  };
+
+  int main()
+  {
+    Chef chef;
+    chef.makeSpecialDish();
+
+    italianChef italianchef;
+    italianchef.makeSpecialDish();
+
+    return 0;
+  }
+
+  ~~~
+  Output
+  ~~~
+  The chef makes bbq ribs
+  The chef makes chicken parm
+  ~~~
+* ### Recursos
+  [Giraffe Academy](https://youtu.be/vLnPwxZdW4Y)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
